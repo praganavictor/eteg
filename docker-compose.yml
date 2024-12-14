@@ -2,27 +2,39 @@ version: '3.8'
 
 services:
   postgres:
-    container_name: eteg-pg
     image: postgres
-    ports:
-      - 5432:5432
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: docker
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: eteg
-      PGDATA: /data/postgres
-    volumes:
-      - ./data/pg:/data/postgres
-  app:
-    build: 
-      context: ./backend/
-      dockerfile: Dockerfile
-    container_name: eteg-api
     ports:
-      - '3333:3333'
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/eteg?schema=public
+    ports:
+      - "3333:3333"
     depends_on:
       - postgres
     volumes:
-      - ./backend/src:/app/src
-    env_file:
-      - ./backend/.env
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+
+  frontend:
+    build: ./frontend
+    environment:
+      REACT_APP_BACKEND_URL: http://backend:3333
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+
+volumes:
+  pgdata:
