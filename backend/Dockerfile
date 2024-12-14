@@ -1,13 +1,14 @@
+# backend/Dockerfile
 FROM node:18
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY . .
-COPY ./.env.example ./.env
-
+COPY package*.json ./
 RUN npm install
 
-RUN npm run build
+COPY . .
+
+RUN npx prisma generate
 
 EXPOSE 3333
 
