@@ -23,7 +23,9 @@ docker-compose up --build
 ```
 
 Isso irá construir as imagens e iniciar os contêineres para o PostgreSQL, backend e frontend.
+
 Certifique-se que todas as builds estão online
+
 Os serviços estarão disponíveis nas seguintes portas:
 
 PostgreSQL: 5432
@@ -36,6 +38,12 @@ Frontend: 4173
 
 ```
 http://localhost:4173
+```
+
+Você tambem pode conferir o banco de dados utilizando
+
+```
+npx prisma studio
 ```
 
 ## Rodando o Projeto Sem Docker
