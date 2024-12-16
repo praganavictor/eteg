@@ -43,6 +43,7 @@ http://localhost:4173
 Você tambem pode conferir o banco de dados utilizando
 
 ```
+cd backend
 npx prisma studio
 ```
 
