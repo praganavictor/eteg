@@ -19,7 +19,7 @@ Este é um desafio tecnico feito para Eteg utilizando Docker, Typescript, React,
 ### 2. Execute o Docker Compose:
 
 ```bash
-docker-compose up --build
+docker-compose up -d
 ```
 
 Isso irá construir as imagens e iniciar os contêineres para o PostgreSQL, backend e frontend.
